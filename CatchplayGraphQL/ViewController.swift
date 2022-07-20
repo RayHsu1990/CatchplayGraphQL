@@ -14,6 +14,16 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func triggered(_ sender: UIButton) {
+//        let req = GetUsersRequest(queryKeys: [.id, .email, .todos(keys: [.id])])
+//        let req = GetUserInfoRequest(queryKeys: [.id, .todos(keys: [.id, .description])], id: "123")
+        let req = GetTodosRequest(queryKeys: [.id, .description, .done])
+        
+        URLSeesionRequestLoader().load(req) { result in
+            print(result)
+        }
+
+    }
 
 }
 
