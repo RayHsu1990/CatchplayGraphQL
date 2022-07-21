@@ -8,12 +8,12 @@
 import Foundation
 
 protocol RequestLoader {
-    func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, req.QLError>)->())
+    func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, Error>) -> ())
 }
 
 struct URLSeesionRequestLoader: RequestLoader {
     
-    func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, req.QLError>) ->()) {
+    func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, Error>) -> ()) {
         URLSession.shared.dataTask(with: request.getURLRequest()) {
             data, res, err in
             if let error = request.convertError(data, res, err) {

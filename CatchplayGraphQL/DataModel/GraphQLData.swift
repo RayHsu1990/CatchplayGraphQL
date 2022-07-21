@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// graphQL的第一層資料結構都是data:
 struct GraphQLData<T: Codable>: Codable {
     typealias Value = T
     var data: Value?

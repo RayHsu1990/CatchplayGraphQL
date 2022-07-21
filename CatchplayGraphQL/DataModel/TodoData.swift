@@ -16,3 +16,7 @@ struct Todo: Codable {
     let description: String?
     let done: Bool?
 }
+
+struct MutationTodoData: Codable {
+    let updateTodo: Todo
+}

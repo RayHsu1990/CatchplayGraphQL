@@ -24,6 +24,7 @@
 		FB79C1DE28883E8000DA0546 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB79C1DD28883E8000DA0546 /* GetUsersRequest.swift */; };
 		FB79C1E028883EC500DA0546 /* GetUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB79C1DF28883EC500DA0546 /* GetUserInfoRequest.swift */; };
 		FB79C1E228884C9200DA0546 /* GetTodosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB79C1E128884C9200DA0546 /* GetTodosRequest.swift */; };
+		FB967A77288948B90063728D /* MutationTodoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967A76288948B90063728D /* MutationTodoRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		FB79C1DD28883E8000DA0546 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		FB79C1DF28883EC500DA0546 /* GetUserInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserInfoRequest.swift; sourceTree = "<group>"; };
 		FB79C1E128884C9200DA0546 /* GetTodosRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodosRequest.swift; sourceTree = "<group>"; };
+		FB967A76288948B90063728D /* MutationTodoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutationTodoRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				FB79C1DD28883E8000DA0546 /* GetUsersRequest.swift */,
 				FB79C1DF28883EC500DA0546 /* GetUserInfoRequest.swift */,
 				FB79C1E128884C9200DA0546 /* GetTodosRequest.swift */,
+				FB967A76288948B90063728D /* MutationTodoRequest.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				FB79C1D328882DEC00DA0546 /* Request.swift in Sources */,
 				FB79C1DA28883C0E00DA0546 /* UserData.swift in Sources */,
 				FB79C1A02888293600DA0546 /* AppDelegate.swift in Sources */,
+				FB967A77288948B90063728D /* MutationTodoRequest.swift in Sources */,
 				FB79C1A22888293600DA0546 /* SceneDelegate.swift in Sources */,
 				FB79C1E228884C9200DA0546 /* GetTodosRequest.swift in Sources */,
 				FB79C1D6288839DC00DA0546 /* Loader.swift in Sources */,

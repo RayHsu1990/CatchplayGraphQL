@@ -14,11 +14,12 @@ protocol Request {
 
 protocol GraphQLRequest: Request {
     associatedtype Value: Codable
-    associatedtype QLError: Error
+
     var queryKeys: [String] { get }
+    var query: String { get }
     
-    func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> QLError?
-    func decode(_ data: Data?) -> Result<Value, QLError>
+    func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> Error?
+    func decode(_ data: Data?) -> Result<Value, Error>
 }
 
 extension GraphQLRequest {
@@ -27,14 +28,40 @@ extension GraphQLRequest {
         return URL(string: "https://api.mocki.io/v2/c4d7a195/graphql")!
     }
     
-    func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> GraphQLError? {
+    func getURLRequest() -> URLRequest {
+        var request = URLRequest(url: url)
+        let parameters = ["query": query]
+        let body = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        request.allHTTPHeaderFields = ["Content-type": "application/json"]
+        request.httpMethod = HttpMethod.post.rawValue
+        request.httpBody = body
+        return request
+    }
+    
+    func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> Error? {
         if error != nil {
-            return .defaultError
+            return GraphQLError.defaultError
         }
         if data == nil {
-            return .noData
+            return GraphQLError.noData
         }
         return nil
+    }
+    
+    func decode(_ data: Data?) -> Result<Value, Error> {
+        guard let data = data else {
+            return .failure(GraphQLError.noData)
+        }
+        do {
+            let value = try JSONDecoder().decode(GraphQLData<Value>.self, from: data)
+            guard let data = value.data else {
+                return .failure(GraphQLError.noData)
+            }
+            return .success(data)
+        }
+        catch {
+            return .failure(GraphQLError.decodeFail)
+        }
     }
     
 }
