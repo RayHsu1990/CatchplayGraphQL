@@ -44,7 +44,7 @@ class QueryBuilder {
     }
         
     func build() -> String {
-        guard !query.fields.isEmpty else { return "" }
+        guard !query.from.isEmpty, !query.fields.isEmpty else { return "" }
         return "\(title){\n" + query.build() + "\n}"
     }
         
@@ -81,7 +81,7 @@ class Query {
         if subQueries.isEmpty {
             query += "\n}"
         } else {
-            query += ",\n"
+            query += "\n"
             query += "\(buildSubQueries())\n}"
         }
         return query

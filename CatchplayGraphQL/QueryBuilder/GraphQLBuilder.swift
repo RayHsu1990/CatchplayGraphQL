@@ -28,7 +28,6 @@ struct GraphQLBuilder {
             .flatMap(\.components)
         let subQueries = components
             .filter { $0 is SubQuery }
-        
         let fields = components
             .filter { $0 is Fields }
             .flatMap(\.components)

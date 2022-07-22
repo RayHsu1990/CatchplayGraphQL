@@ -36,7 +36,7 @@ class CatchplayGraphQLTests: XCTestCase {
         }
     }
 
-    func testUsersData_isCorrect() {
+    func test_UsersData_decodeSuccess() {
         mockLoader.data = Data(usersDataMock.utf8)
         let req = GetUsersRequest(queryKeys: [.id, .email, .name], todoQueries: [.id, .description, .done])
         mockLoader.load(req) { result in
@@ -50,8 +50,8 @@ class CatchplayGraphQLTests: XCTestCase {
         }
     }
     
-    func testUserData_isCorrect() {
-        mockLoader.data = Data(usersDataMock.utf8)
+    func test_UserData_decodeSuccess() {
+        mockLoader.data = Data(userDataMock.utf8)
         let req = GetUserInfoRequest(queryKeys: [.id, .email, .name], userId: "123", todosKeys: [.id, .description, .done])
         mockLoader.load(req) { result in
             switch result {
@@ -64,7 +64,7 @@ class CatchplayGraphQLTests: XCTestCase {
         }
     }
     
-    func testTodoData_isCorrect() {
+    func test_TodoData_decodeSuccess() {
         mockLoader.data = Data(todoDataMock.utf8)
         let req = GetTodosRequest(queryKeys: [.id, .description, .done])
         mockLoader.load(req) { result in
@@ -78,7 +78,7 @@ class CatchplayGraphQLTests: XCTestCase {
         }
     }
     
-    func test_updateTo_success() {
+    func test_updateTodo_decodeSuccess() {
         mockLoader.data = Data(mutateTodoDataMock.utf8)
         let req = MutationTodoRequest(queryKeys: [.done], id: nil, description: nil, done: true)
         mockLoader.load(req) { result in
@@ -89,28 +89,90 @@ class CatchplayGraphQLTests: XCTestCase {
                 XCTFail()
             }
         }
-
     }
     
-//    func test_query() {
-//        let query = GraphQLQuery.query() {
-//            From("users")
-//            Fields("id", "email", "name")
-//        }
-//        let expectation = """
-//                            {
-//                                users  {
-//                                    id
-//                                    email
-//                                    name
-//                                }
-//                            }
-//                            """
-//
-//        XCTAssertEqual(expectation.removeSpace(), query)
-//
-//    }
+    func test_query_isCorrect() {
+        let query = GraphQLQuery.query() {
+            From("users")
+            Fields("id", "email", "name")
+        }
+        let expectation = """
+                        {
+                            users  {
+                                id
+                                email
+                                name
+                            }
+                        }
+                        """
+        
+        XCTAssertEqual(expectation.removeSpace(), query)
+    }
 
+    func test_queryWithoutFrom_inCorrect() {
+        let query = GraphQLQuery.query() {
+            Fields("id", "email", "name")
+        }
+        XCTAssertEqual("", query)
+    }
+    
+    func test_queryWithoutField_incorrect() {
+        let query = GraphQLQuery.query() {
+            From("test")
+        }
+        XCTAssertEqual("", query)
+    }
+    
+    func test_queryWithsubQuery_isCorrect() {
+        let query = GraphQLQuery.query() {
+            From("test")
+            Fields("id")
+            SubQuery {
+                From("sub1")
+                Fields("id")
+                SubQuery {
+                    From("sub2")
+                    Fields("id")
+                }
+            }
+        }
+        
+        let expectation = """
+                    {
+                        test {
+                            id
+                            sub1 {
+                                id
+                                sub2 {
+                                    id
+                                }
+                            }
+                        }
+                    }
+                    """
+        XCTAssertEqual(expectation.removeSpace(), query)
+    }
+    
+    func test_queryWithSubArgument_isCorrect() {
+        let query = GraphQLQuery.query() {
+            From("test")
+            Arguments(Argument(key: "subArgument",
+                               subArguments: [Argument(key: "1", value: "1"),
+                                              Argument(key: "2", value: "2")]
+                              ))
+            Fields("field1")
+        }
+           
+        let expectation = """
+                    {
+                        test(subArgument: {1: "1", 2: "2"}) {
+                            field1
+                        }
+                    }
+                    """
+        XCTAssertEqual(expectation.removeSpace(), query)
+    }
+    
 }
 
 fileprivate struct MockRequestLoader: RequestLoader {
@@ -132,8 +194,9 @@ fileprivate struct MockRequestLoader: RequestLoader {
 }
 
 fileprivate let decodeErrorStr = """
-                    {  {
-                        "users": [
+                    {
+                        {
+                            "users": [
                                 { "id": "Hello World", },
                                 { "id": "Hello World", }
                             ]
