@@ -15,6 +15,7 @@ protocol Request {
 protocol GraphQLRequest: Request {
     associatedtype Value: Codable
     var url: URL { get }
+    var httpMethod: HttpMethod { get }
     var query: String { get }
     
     func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> Error?
@@ -27,12 +28,16 @@ extension GraphQLRequest {
         return URL(string: "https://api.mocki.io/v2/c4d7a195/graphql")!
     }
     
+    var httpMethod: HttpMethod {
+        return .post
+    }
+    
     func getURLRequest() -> URLRequest {
         var request = URLRequest(url: url)
         let parameters = ["query": query]
         let body = try? JSONSerialization.data(withJSONObject: parameters, options: [])
         request.allHTTPHeaderFields = ["Content-type": "application/json"]
-        request.httpMethod = HttpMethod.post.rawValue
+        request.httpMethod = httpMethod.rawValue
         request.httpBody = body
         return request
     }

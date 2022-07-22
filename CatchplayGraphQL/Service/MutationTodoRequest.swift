@@ -39,20 +39,4 @@ struct MutationTodoRequest: GraphQLRequest {
         self.done = done
     }
     
-    private func getInputQuery() -> String {
-        var query = ""
-        if let id = id {
-            let str = """
-                    id: "\(id)", 
-                    """
-            query.append(str)
-        }
-        if let description = description {
-            query.append("description: \"\(description)\", ")
-        }
-         
-        query.append("done: \(String(done))")
-        
-        return query
-    }
 }
