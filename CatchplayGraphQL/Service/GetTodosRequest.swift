@@ -7,25 +7,16 @@
 
 import Foundation
 
-enum TodoQueryKey: String, CaseIterable {
-    case id
-    case description
-    case done
-}
-
 struct GetTodosRequest: GraphQLRequest {
     typealias Value = TodosData
     
     let queryKeys: [String]
     
     var query: String {
-        return """
-                {
-                    todos {
-                        \(queryKeys.joined(separator: "\n"))
-                    }
-                }
-                """
+        return GraphQLQuery.query() {
+            From("todos")
+            Fields(queryKeys)
+        }
     }
     
     init(queryKeys: [TodoQueryKey]) {

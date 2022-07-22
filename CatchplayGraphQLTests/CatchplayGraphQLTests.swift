@@ -23,18 +23,9 @@ class CatchplayGraphQLTests: XCTestCase {
     }
     
     func test_decodeError() {
-        // 少了data
-        let str = """
-                    {  {
-                        "users": [
-                                { "id": "Hello World", },
-                                { "id": "Hello World", }
-                            ]
-                        }
-                    }
-                    """
-        mockLoader.data = Data(str.utf8)
-        let req = GetUsersRequest(queryKeys: [.id])
+        // 少了"data"
+        mockLoader.data = Data(decodeErrorStr.utf8)
+        let req = GetUsersRequest(queryKeys: [.id], todoQueries: nil)
         mockLoader.load(req) { result in
             switch result {
             case .success(_):
@@ -46,7 +37,112 @@ class CatchplayGraphQLTests: XCTestCase {
     }
 
     func testUsersData_isCorrect() {
-        let str = """
+        mockLoader.data = Data(usersDataMock.utf8)
+        let req = GetUsersRequest(queryKeys: [.id, .email, .name], todoQueries: [.id, .description, .done])
+        mockLoader.load(req) { result in
+            switch result {
+            case .success(let value):
+                XCTAssertTrue(value.users.count == 2)
+                XCTAssertEqual(value.users.first?.todos?.first?.done, false)
+            case .failure(_):
+                XCTFail()
+            }
+        }
+    }
+    
+    func testUserData_isCorrect() {
+        mockLoader.data = Data(usersDataMock.utf8)
+        let req = GetUserInfoRequest(queryKeys: [.id, .email, .name], userId: "123", todosKeys: [.id, .description, .done])
+        mockLoader.load(req) { result in
+            switch result {
+            case .success(let value):
+                XCTAssertTrue(value.user.todos?.count == 2)
+                XCTAssertEqual(value.user.todos?.first?.done, false)
+            case .failure(_):
+                XCTFail()
+            }
+        }
+    }
+    
+    func testTodoData_isCorrect() {
+        mockLoader.data = Data(todoDataMock.utf8)
+        let req = GetTodosRequest(queryKeys: [.id, .description, .done])
+        mockLoader.load(req) { result in
+            switch result {
+            case .success(let value):
+                XCTAssertTrue(value.todos.count == 2)
+                XCTAssertEqual(value.todos.first?.done, true)
+            case .failure(_):
+                XCTFail()
+            }
+        }
+    }
+    
+    func test_updateTo_success() {
+        mockLoader.data = Data(mutateTodoDataMock.utf8)
+        let req = MutationTodoRequest(queryKeys: [.done], id: nil, description: nil, done: true)
+        mockLoader.load(req) { result in
+            switch result {
+            case .success(let value):
+                XCTAssertNotNil(value.updateTodo.done)
+            case .failure(_):
+                XCTFail()
+            }
+        }
+
+    }
+    
+//    func test_query() {
+//        let query = GraphQLQuery.query() {
+//            From("users")
+//            Fields("id", "email", "name")
+//        }
+//        let expectation = """
+//                            {
+//                                users  {
+//                                    id
+//                                    email
+//                                    name
+//                                }
+//                            }
+//                            """
+//
+//        XCTAssertEqual(expectation.removeSpace(), query)
+//
+//    }
+
+}
+
+fileprivate struct MockRequestLoader: RequestLoader {
+    
+    var data: Data?
+    
+    var error: Error?
+    
+    func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, Error>) ->()) {
+        
+        if let error = error {
+            completion(.failure(error))
+            return
+        }
+        
+        completion(request.decode(data))
+    }
+    
+}
+
+fileprivate let decodeErrorStr = """
+                    {  {
+                        "users": [
+                                { "id": "Hello World", },
+                                { "id": "Hello World", }
+                            ]
+                        }
+                    }
+                    """
+
+
+fileprivate let usersDataMock = """
                     {
                       "data": {
                         "users": [
@@ -88,21 +184,8 @@ class CatchplayGraphQLTests: XCTestCase {
                       }
                     }
                     """
-        mockLoader.data = Data(str.utf8)
-        let req = GetUsersRequest(queryKeys: [.id, .email, .name, .todos(keys: [.id, .description, .done])])
-        mockLoader.load(req) { result in
-            switch result {
-            case .success(let value):
-                XCTAssertTrue(value.users.count == 2)
-                XCTAssertEqual(value.users.first?.todos?.first?.done, false)
-            case .failure(_):
-                XCTFail()
-            }
-        }
-    }
-    
-    func testUserData_isCorrect() {
-        let str = """
+
+fileprivate let userDataMock = """
                 {
                     "data": {
                         "user": {
@@ -125,22 +208,8 @@ class CatchplayGraphQLTests: XCTestCase {
                     }
                 }
                 """
-        mockLoader.data = Data(str.utf8)
 
-        let req = GetUserInfoRequest(queryKeys: [.id, .email, .name, .todos(keys: [.id, .description, .done])], id: "123")
-        mockLoader.load(req) { result in
-            switch result {
-            case .success(let value):
-                XCTAssertTrue(value.user.todos?.count == 2)
-                XCTAssertEqual(value.user.todos?.first?.done, false)
-            case .failure(_):
-                XCTFail()
-            }
-        }
-    }
-    
-    func testTodoData_isCorrect() {
-        let str = """
+fileprivate let todoDataMock = """
                 {
                   "data": {
                     "todos": [
@@ -158,22 +227,8 @@ class CatchplayGraphQLTests: XCTestCase {
                   }
                 }
                 """
-        mockLoader.data = Data(str.utf8)
 
-        let req = GetTodosRequest(queryKeys: [.id, .description, .done])
-        mockLoader.load(req) { result in
-            switch result {
-            case .success(let value):
-                XCTAssertTrue(value.todos.count == 2)
-                XCTAssertEqual(value.todos.first?.done, true)
-            case .failure(_):
-                XCTFail()
-            }
-        }
-    }
-    
-    func test_updateTo_success() {
-        let str = """
+fileprivate let mutateTodoDataMock = """
                 {
                   "data": {
                     "updateTodo": {
@@ -182,37 +237,3 @@ class CatchplayGraphQLTests: XCTestCase {
                   }
                 }
                 """
-        mockLoader.data = Data(str.utf8)
-
-        let req = MutationTodoRequest(queryKeys: [.done], id: nil, description: nil, done: true)
-        
-        mockLoader.load(req) { result in
-            switch result {
-            case .success(let value):
-                XCTAssertNotNil(value.updateTodo.done)
-            case .failure(_):
-                XCTFail()
-            }
-        }
-
-    }
-
-}
-
-fileprivate struct MockRequestLoader: RequestLoader {
-    
-    var data: Data?
-    
-    var error: Error?
-    
-    func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, Error>) ->()) {
-        
-        if let error = error {
-            completion(.failure(error))
-            return
-        }
-        
-        completion(request.decode(data))
-    }
-    
-}

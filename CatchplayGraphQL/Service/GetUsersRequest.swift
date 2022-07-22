@@ -7,36 +7,28 @@
 
 import Foundation
 
-enum UserQueryKey {
-    case id
-    case email
-    case name
-    case todos(keys: [TodoQueryKey])
-    
-    var keyString: String {
-        switch self {
-        case .id: return "id"
-        case .email: return "email"
-        case .name: return "name"
-        case .todos(let keys):
-            return "todos {\n\(keys.map { $0.rawValue }.joined(separator: "\n"))\n }"
-        }
-    }
-    
-}
-
 struct GetUsersRequest: GraphQLRequest {
     
     typealias Value = UsersData
     
     let queryKeys: [String]
+    
+    let todoQueries: [String]?
         
     var query: String {
-        return "{\n users \n { \(queryKeys.joined(separator: "\n")) \n } \n }"
+        return GraphQLQuery.query() {
+            From("users")
+            Fields(queryKeys)
+            SubQuery {
+                From("todos")
+                Fields(todoQueries)
+            }
+        }
     }
     
-    init(queryKeys: [UserQueryKey]) {
-        self.queryKeys = queryKeys.map { $0.keyString }
+    init(queryKeys: [UserQueryKey], todoQueries: [TodoQueryKey]?) {
+        self.queryKeys = queryKeys.map { $0.rawValue }
+        self.todoQueries = todoQueries?.map { $0.rawValue }
     }
     
 }

@@ -20,3 +20,10 @@ struct Todo: Codable {
 struct MutationTodoData: Codable {
     let updateTodo: Todo
 }
+
+enum TodoQueryKey: String {
+    case id
+    case description
+    case done
+}
+

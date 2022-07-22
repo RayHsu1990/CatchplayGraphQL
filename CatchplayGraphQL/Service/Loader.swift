@@ -16,11 +16,13 @@ struct URLSeesionRequestLoader: RequestLoader {
     func load<req: GraphQLRequest>(_ request: req, completion: @escaping (Result<req.Value, Error>) -> ()) {
         URLSession.shared.dataTask(with: request.getURLRequest()) {
             data, res, err in
-            if let error = request.convertError(data, res, err) {
-                completion(.failure(error))
-                return
+            DispatchQueue.main.async {
+                if let error = request.convertError(data, res, err) {
+                    completion(.failure(error))
+                    return
+                }
+                completion(request.decode(data))
             }
-            completion(request.decode(data))
         }.resume()
     }
     

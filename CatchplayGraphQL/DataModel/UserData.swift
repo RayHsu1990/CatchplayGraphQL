@@ -22,3 +22,8 @@ struct UsersData: Codable {
     let users: [User]
 }
 
+enum UserQueryKey: String {
+    case id
+    case email
+    case name
+}

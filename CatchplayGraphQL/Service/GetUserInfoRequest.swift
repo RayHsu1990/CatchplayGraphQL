@@ -10,23 +10,27 @@ import Foundation
 struct GetUserInfoRequest: GraphQLRequest {
     typealias Value = UserData
     
+    let userId: String
+    
     let queryKeys: [String]
-    
-    let id: String
-    
+    let todosKeys: [String]?
+
     var query: String {
-        return """
-                {
-                    user(id: "\(id)") {
-                        \(queryKeys.joined(separator: "\n"))
-                    }
-                }
-                """
+        return GraphQLQuery.query() {
+            From("user")
+            Arguments(Argument(key: "id", value: userId))
+            Fields(queryKeys)
+            SubQuery {
+                From("todos")
+                Fields(todosKeys)
+            }
+        }
     }
     
-    init(queryKeys: [UserQueryKey], id: String) {
-        self.queryKeys = queryKeys.map { $0.keyString }
-        self.id = id
+    init(queryKeys: [UserQueryKey], userId: String, todosKeys: [TodoQueryKey]?) {
+        self.queryKeys = queryKeys.map { $0.rawValue }
+        self.userId = userId
+        self.todosKeys = todosKeys?.map { $0.rawValue }
     }
     
 }

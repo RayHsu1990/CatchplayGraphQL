@@ -25,6 +25,10 @@
 		FB79C1E028883EC500DA0546 /* GetUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB79C1DF28883EC500DA0546 /* GetUserInfoRequest.swift */; };
 		FB79C1E228884C9200DA0546 /* GetTodosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB79C1E128884C9200DA0546 /* GetTodosRequest.swift */; };
 		FB967A77288948B90063728D /* MutationTodoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967A76288948B90063728D /* MutationTodoRequest.swift */; };
+		FB967A792889908E0063728D /* QueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967A782889908E0063728D /* QueryBuilder.swift */; };
+		FB967A7C288A5B870063728D /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967A7B288A5B870063728D /* Component.swift */; };
+		FB967A7E288A5BB80063728D /* GraphQLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967A7D288A5BB80063728D /* GraphQLBuilder.swift */; };
+		FB967A81288A87F10063728D /* Extension + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967A80288A87F10063728D /* Extension + String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,10 @@
 		FB79C1DF28883EC500DA0546 /* GetUserInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserInfoRequest.swift; sourceTree = "<group>"; };
 		FB79C1E128884C9200DA0546 /* GetTodosRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodosRequest.swift; sourceTree = "<group>"; };
 		FB967A76288948B90063728D /* MutationTodoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutationTodoRequest.swift; sourceTree = "<group>"; };
+		FB967A782889908E0063728D /* QueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryBuilder.swift; sourceTree = "<group>"; };
+		FB967A7B288A5B870063728D /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		FB967A7D288A5BB80063728D /* GraphQLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLBuilder.swift; sourceTree = "<group>"; };
+		FB967A80288A87F10063728D /* Extension + String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + String.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +125,8 @@
 		FB79C19E2888293600DA0546 /* CatchplayGraphQL */ = {
 			isa = PBXGroup;
 			children = (
+				FB967A7F288A87D50063728D /* Extension */,
+				FB967A7A288A5B670063728D /* QueryBuilder */,
 				FB79C1D428882E7300DA0546 /* DataModel */,
 				FB79C1D128882DDA00DA0546 /* Service */,
 				FB79C19F2888293600DA0546 /* AppDelegate.swift */,
@@ -168,6 +178,24 @@
 				FB79C1DB28883C1F00DA0546 /* TodoData.swift */,
 			);
 			path = DataModel;
+			sourceTree = "<group>";
+		};
+		FB967A7A288A5B670063728D /* QueryBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				FB967A7D288A5BB80063728D /* GraphQLBuilder.swift */,
+				FB967A782889908E0063728D /* QueryBuilder.swift */,
+				FB967A7B288A5B870063728D /* Component.swift */,
+			);
+			path = QueryBuilder;
+			sourceTree = "<group>";
+		};
+		FB967A7F288A87D50063728D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FB967A80288A87F10063728D /* Extension + String.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,13 +330,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB79C1A42888293600DA0546 /* ViewController.swift in Sources */,
+				FB967A7C288A5B870063728D /* Component.swift in Sources */,
+				FB967A81288A87F10063728D /* Extension + String.swift in Sources */,
 				FB79C1DE28883E8000DA0546 /* GetUsersRequest.swift in Sources */,
 				FB79C1DC28883C1F00DA0546 /* TodoData.swift in Sources */,
 				FB79C1D328882DEC00DA0546 /* Request.swift in Sources */,
+				FB967A792889908E0063728D /* QueryBuilder.swift in Sources */,
 				FB79C1DA28883C0E00DA0546 /* UserData.swift in Sources */,
 				FB79C1A02888293600DA0546 /* AppDelegate.swift in Sources */,
 				FB967A77288948B90063728D /* MutationTodoRequest.swift in Sources */,
 				FB79C1A22888293600DA0546 /* SceneDelegate.swift in Sources */,
+				FB967A7E288A5BB80063728D /* GraphQLBuilder.swift in Sources */,
 				FB79C1E228884C9200DA0546 /* GetTodosRequest.swift in Sources */,
 				FB79C1D6288839DC00DA0546 /* Loader.swift in Sources */,
 				FB79C1D828883A8F00DA0546 /* GraphQLData.swift in Sources */,

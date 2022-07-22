@@ -14,8 +14,7 @@ protocol Request {
 
 protocol GraphQLRequest: Request {
     associatedtype Value: Codable
-
-    var queryKeys: [String] { get }
+    var url: URL { get }
     var query: String { get }
     
     func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> Error?

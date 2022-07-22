@@ -19,13 +19,17 @@ struct MutationTodoRequest: GraphQLRequest {
     let done: Bool
     
     var query: String {
-        return """
-                mutation {
-                    updateTodo(input: { \(getInputQuery()) } ) {
-                            \(queryKeys.joined(separator: "\n"))
-                    }
-                }
-                """
+        return GraphQLQuery.query() {
+            QueryTitle(title: "mutation")
+            From("updateTodo")
+            Arguments(Argument(key: "input", subArguments: [
+                Argument(key: "id", value: id),
+                Argument(key: "description", value: description),
+                Argument(key: "done", value: done)
+            ]))
+            
+            Fields(queryKeys)
+        }
     }
     
     init(queryKeys: [TodoQueryKey], id: String?, description: String?, done: Bool) {
