@@ -13,6 +13,7 @@ struct GetUserInfoRequest: GraphQLRequest {
     let userId: String
     
     let queryKeys: [String]
+    
     let todosKeys: [String]?
 
     var query: String {

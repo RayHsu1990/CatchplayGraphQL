@@ -13,6 +13,33 @@ protocol Component {
     var arguments: [Argument]? { get }
 }
 
+struct From: Component {
+    let string: String
+    
+    let components: [String]
+    
+    let arguments: [Argument]?
+    
+    init(_ string: String) {
+        self.init(string: string, components: [], arguments: nil)
+    }
+    
+    private init(string: String, components: [String], arguments: [Argument]?) {
+        self.string = string
+        self.components = components
+        self.arguments = arguments
+    }
+    
+    func fields(_ fields: String...) -> Component {
+        From(string: string, components: fields, arguments: nil)
+    }
+    
+    func arguments(_ arguments: Argument...) -> Component {
+        From(string: string, components: components, arguments: arguments)
+    }
+    
+}
+
 struct Argument {
     
     var description: String
@@ -40,9 +67,10 @@ struct Argument {
 }
 
 struct SubQuery: Component {
-    
     var string: String
+    
     var components: [String] = []
+    
     var arguments: [Argument]? = nil
     
     init(@GraphQLBuilder builder: () -> String) {
@@ -65,35 +93,11 @@ struct QueryTitle: Component {
     }
 }
 
-struct From: Component {
-    
-    let string: String
-    let components: [String]
-    let arguments: [Argument]?
-    
-    init(_ string: String) {
-        self.init(string: string, components: [], arguments: nil)
-    }
-    
-    private init(string: String, components: [String], arguments: [Argument]?) {
-        self.string = string
-        self.components = components
-        self.arguments = arguments
-    }
-    
-    func fields(_ fields: String...) -> Component {
-        From(string: string, components: fields, arguments: nil)
-    }
-    
-    func arguments(_ arguments: Argument...) -> Component {
-        From(string: string, components: components, arguments: arguments)
-    }
-    
-}
-
 struct Fields: Component {
     let string: String = ""
+    
     var components: [String]
+    
     var arguments: [Argument]? = nil
     
     init(_ components: String...) {
@@ -107,7 +111,9 @@ struct Fields: Component {
 
 struct Arguments: Component {
     let string: String = ""
+    
     let components: [String]
+    
     var arguments: [Argument]? = nil
     
     init(_ arguments: Argument...) {

@@ -9,16 +9,22 @@ import Foundation
 
 protocol Request {
     var url: URL { get }
+    
     func getURLRequest() -> URLRequest
 }
 
 protocol GraphQLRequest: Request {
+    
     associatedtype Value: Codable
+    
     var url: URL { get }
+    
     var httpMethod: HttpMethod { get }
+    
     var query: String { get }
     
     func convertError(_ data: Data?, _ res: URLResponse?, _ error: Error?) -> Error?
+    
     func decode(_ data: Data?) -> Result<Value, Error>
 }
 

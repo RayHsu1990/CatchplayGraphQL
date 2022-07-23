@@ -109,7 +109,7 @@ class CatchplayGraphQLTests: XCTestCase {
         XCTAssertEqual(expectation.removeSpace(), query)
     }
 
-    func test_queryWithoutFrom_inCorrect() {
+    func test_queryWithoutFrom_incorrect() {
         let query = GraphQLQuery.query() {
             Fields("id", "email", "name")
         }
