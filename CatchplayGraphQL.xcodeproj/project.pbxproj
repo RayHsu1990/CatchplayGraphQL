@@ -37,13 +37,6 @@
 			remoteGlobalIDString = FB79C19B2888293600DA0546;
 			remoteInfo = CatchplayGraphQL;
 		};
-		FB79C1BD2888293900DA0546 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FB79C1942888293600DA0546 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FB79C19B2888293600DA0546;
-			remoteInfo = CatchplayGraphQL;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +50,6 @@
 		FB79C1AD2888293900DA0546 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB79C1B22888293900DA0546 /* CatchplayGraphQLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchplayGraphQLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB79C1B62888293900DA0546 /* CatchplayGraphQLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchplayGraphQLTests.swift; sourceTree = "<group>"; };
-		FB79C1BC2888293900DA0546 /* CatchplayGraphQLUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchplayGraphQLUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB79C1D228882DEC00DA0546 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FB79C1D5288839DC00DA0546 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		FB79C1D728883A8F00DA0546 /* GraphQLData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLData.swift; sourceTree = "<group>"; };
@@ -88,13 +80,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FB79C1B92888293900DA0546 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -112,7 +97,6 @@
 			children = (
 				FB79C19C2888293600DA0546 /* CatchplayGraphQL.app */,
 				FB79C1B22888293900DA0546 /* CatchplayGraphQLTests.xctest */,
-				FB79C1BC2888293900DA0546 /* CatchplayGraphQLUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,24 +206,6 @@
 			productReference = FB79C1B22888293900DA0546 /* CatchplayGraphQLTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FB79C1BB2888293900DA0546 /* CatchplayGraphQLUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FB79C1CC2888293900DA0546 /* Build configuration list for PBXNativeTarget "CatchplayGraphQLUITests" */;
-			buildPhases = (
-				FB79C1B82888293900DA0546 /* Sources */,
-				FB79C1B92888293900DA0546 /* Frameworks */,
-				FB79C1BA2888293900DA0546 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FB79C1BE2888293900DA0546 /* PBXTargetDependency */,
-			);
-			name = CatchplayGraphQLUITests;
-			productName = CatchplayGraphQLUITests;
-			productReference = FB79C1BC2888293900DA0546 /* CatchplayGraphQLUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -254,10 +220,6 @@
 						CreatedOnToolsVersion = 13.4.1;
 					};
 					FB79C1B12888293900DA0546 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = FB79C19B2888293600DA0546;
-					};
-					FB79C1BB2888293900DA0546 = {
 						CreatedOnToolsVersion = 13.4.1;
 						TestTargetID = FB79C19B2888293600DA0546;
 					};
@@ -278,7 +240,6 @@
 			targets = (
 				FB79C19B2888293600DA0546 /* CatchplayGraphQL */,
 				FB79C1B12888293900DA0546 /* CatchplayGraphQLTests */,
-				FB79C1BB2888293900DA0546 /* CatchplayGraphQLUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,13 +256,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FB79C1B02888293900DA0546 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FB79C1BA2888293900DA0546 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -342,13 +296,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FB79C1B82888293900DA0546 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -356,11 +303,6 @@
 			isa = PBXTargetDependency;
 			target = FB79C19B2888293600DA0546 /* CatchplayGraphQL */;
 			targetProxy = FB79C1B32888293900DA0546 /* PBXContainerItemProxy */;
-		};
-		FB79C1BE2888293900DA0546 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FB79C19B2888293600DA0546 /* CatchplayGraphQL */;
-			targetProxy = FB79C1BD2888293900DA0546 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -594,42 +536,6 @@
 			};
 			name = Release;
 		};
-		FB79C1CD2888293900DA0546 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TS4DWS8Z33;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RayHsu.CatchplayGraphQLUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CatchplayGraphQL;
-			};
-			name = Debug;
-		};
-		FB79C1CE2888293900DA0546 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TS4DWS8Z33;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RayHsu.CatchplayGraphQLUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CatchplayGraphQL;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -656,15 +562,6 @@
 			buildConfigurations = (
 				FB79C1CA2888293900DA0546 /* Debug */,
 				FB79C1CB2888293900DA0546 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FB79C1CC2888293900DA0546 /* Build configuration list for PBXNativeTarget "CatchplayGraphQLUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FB79C1CD2888293900DA0546 /* Debug */,
-				FB79C1CE2888293900DA0546 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
