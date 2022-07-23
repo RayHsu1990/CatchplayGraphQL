@@ -39,16 +39,6 @@
                ReferencedContainer = "container:CatchplayGraphQL.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FB79C1BB2888293900DA0546"
-               BuildableName = "CatchplayGraphQLUITests.xctest"
-               BlueprintName = "CatchplayGraphQLUITests"
-               ReferencedContainer = "container:CatchplayGraphQL.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
